@@ -59,21 +59,23 @@ Wenli Huang*, Yang Wu*, Xiaomeng Xin, Zhihong Liu, Jinjun Wang, and Ye Deng, IEE
 ## <a name="datasets"></a>🖨️ Datasets
 - **TABLE I: Overview of the datasets comprising the benchmark for unified remote sensing image restoration (URSIR).**
 
-- | Task            | Dataset     | Train   | Test    |
-  | --------------- | ----------- | ------- | ------- |
-  | Denoising       | UCMLUD      | 1680    | 420     |
-  | Declouding      | RICE1/RICE2 | 400/558 | 100/148 |
-  | Deshadowing     | SRD         | 2680    | 408     |
-  | SAR Despeckling | NRD         | 250     | 20      |
-  | Deblurring      | HIT-UAV     | 2029    | 579     |
+- | Task            | Dataset    | Train   | Test  |
+  | --------------- | ---------- | ------- | ----- |
+  | Denoising       | UCMLUD     | 1680    | 420   |
+  | Declouding      | RICE1      | 400     | 100   |
+  | Declouding      | RICE2      | 558     | 148   |
+  | Declouding      | SEN12MS-CR | 114,319 | 7,899 |
+  | Deshadowing     | SRD        | 2680    | 408   |
+| SAR Despeckling | NRD        | 250     | 20    |
+  | Deblurring      | HIT-UAV    | 2029    | 579   |
 
   
-
+  
 - ```Denoising```: The UC Merced Land Use Dataset (UCM-LUD) is utilized for additive Gaussian noise removal, featuring high-resolution optical imagery from 21 diverse land-use categories.
 
-- ```Declouding```: Three datasets are included to address declouding across various cloud types and sensor modalities. The RICE1 and RICE2 datasets provide RGB imagery for removing thin and thick clouds, respectively. 
+- ```Declouding```: Three datasets are included to address declouding across various cloud types and sensor modalities. The RICE1 and RICE2 datasets provide RGB imagery for removing thin and thick clouds, respectively.  The SEN12MS-CR dataset offers a multispectral challenge, featuring 13-band Sentinel-2 imagery with varied cloud cover.
 
-- ```Deshadowing```: Shadow correction is evaluated using two distinct sources. The Shadow Removal Dataset (SRD) provides real-world optical images featuring complex shadow geometries across urban and natural landscapes. 
+- ```Deshadowing```: Shadow correction is evaluated using two distinct sources. First, the Shadow Removal Dataset (SRD) provides real-world optical images featuring complex shadow geometries across urban and natural landscapes. Second, we constructed a specialized UAV Traffic Surveillance Scenes (UAV-TSS) dataset (2,600 images), which utilizes linear illumination modeling to simulate realistic aerial occlusion and penumbra effects.
 
 - ```SAR Despeckling```: The Near Real Dataset (NRD) is used for speckle reduction in SAR imagery. It consists
   of speckled Sentinel-1 data and corresponding clean reference images generated from time-series analysis.
