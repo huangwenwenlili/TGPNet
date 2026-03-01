@@ -59,13 +59,13 @@ Wenli Huang*, Yang Wu*, Xiaomeng Xin, Zhihong Liu, Jinjun Wang, and Ye Deng, IEE
 ## <a name="datasets"></a>🖨️ Datasets
 - **TABLE I: Overview of the datasets comprising the benchmark for unified remote sensing image restoration (URSIR).**
 
-- | Task            | Dataset     | Train     | Test    |
-  | --------------- | ----------- | --------- | ------- |
-  | Denoising       | UCMLUD      | 1680      | 420     |
-  | Declouding      | RICE1/RICE2 | 400/558   | 100/148 |
-  | Deshadowing     | SRD/UAV-TSS | 2680/2200 | 408/400 |
-  | SAR Despeckling | NRD         | 250       | 20      |
-  | Deblurring      | HIT-UAV     | 2029      | 579     |
+- | Task            | Dataset     | Train   | Test    |
+  | --------------- | ----------- | ------- | ------- |
+  | Denoising       | UCMLUD      | 1680    | 420     |
+  | Declouding      | RICE1/RICE2 | 400/558 | 100/148 |
+  | Deshadowing     | SRD         | 2680    | 408     |
+  | SAR Despeckling | NRD         | 250     | 20      |
+  | Deblurring      | HIT-UAV     | 2029    | 579     |
 
   
 
@@ -73,7 +73,7 @@ Wenli Huang*, Yang Wu*, Xiaomeng Xin, Zhihong Liu, Jinjun Wang, and Ye Deng, IEE
 
 - ```Declouding```: Three datasets are included to address declouding across various cloud types and sensor modalities. The RICE1 and RICE2 datasets provide RGB imagery for removing thin and thick clouds, respectively. 
 
-- ```Deshadowing```: Shadow correction is evaluated using two distinct sources. First, the Shadow Removal Dataset (SRD) provides real-world optical images featuring complex shadow geometries across urban and natural landscapes. Second, we constructed a specialized UAV Traffic Surveillance Scenes (UAV-TSS) dataset (2,600 images), which utilizes linear illumination modeling to simulate realistic aerial occlusion and penumbra effects.
+- ```Deshadowing```: Shadow correction is evaluated using two distinct sources. The Shadow Removal Dataset (SRD) provides real-world optical images featuring complex shadow geometries across urban and natural landscapes. 
 
 - ```SAR Despeckling```: The Near Real Dataset (NRD) is used for speckle reduction in SAR imagery. It consists
   of speckled Sentinel-1 data and corresponding clean reference images generated from time-series analysis.
