@@ -66,7 +66,7 @@ Wenli Huang*, Yang Wu*, Xiaomeng Xin, Zhihong Liu, Jinjun Wang, and Ye Deng, IEE
   | Declouding      | RICE2      | 558     | 148   |
   | Declouding      | SEN12MS-CR | 114,319 | 7,899 |
   | Deshadowing     | SRD        | 2680    | 408   |
-| SAR Despeckling | NRD        | 250     | 20    |
+  | SAR Despeckling | NRD        | 250     | 20    |
   | Deblurring      | HIT-UAV    | 2029    | 579   |
 
   
