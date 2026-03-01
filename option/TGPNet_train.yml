@@ -1,0 +1,125 @@
+# general settings
+name: TGPNet   # log and checkpoint save folder name
+model_type: ImageCleanEPModel
+scale: 1
+num_gpu: 2 #2
+manual_seed: 100
+
+# dataset and data loader settings
+datasets:
+  train:
+    name: TrainSet
+    type: AIOSR_SAR_EP_TrainDataset
+    data_file_dir: datasets/AIO-RS5/train/
+#    de_type: [ denoise_15, denoise_25, denoise_50, decloud, deshadow, desar, deblurgauss_5, deblurgauss_10,decloud_sen12ms ]
+    de_type: [ denoise_15, denoise_25, denoise_50, decloud, deshadow, desar, deblurgauss_5, deblurgauss_10 ]
+    io_backend:
+      type: disk
+
+    use_flip: true
+    use_rot: true
+
+    # data loader
+    use_shuffle: true
+    num_worker_per_gpu: 14 #14
+    batch_size_per_gpu: 28 #28
+
+    ### ------- Training on single fixed-patch size 128x128---------
+    mini_batch_sizes: [28] #28
+    iters: [400000]
+    gt_size: 128
+    gt_sizes: [128]
+    ### ------------------------------------------------------------
+
+    dataset_enlarge_ratio: 1
+    prefetch_mode: ~
+
+  val:
+    name: ValSet
+    type: IRBenchmarks
+    data_file_dir: datasets/AIO-RS5/test/
+    benchmarks: [ decloud_rice1 ] #[decloud_rice1, decloud_rice2, deshadow, desar, denoise_15, denoise_25, denoise_50]
+    de_type: [ denoise_15, denoise_25, denoise_50, decloud, deshadow, desar, deblurgauss_5, deblurgauss_10,decloud_sen12ms]
+    io_backend:
+      type: disk
+
+# network structures
+network_g:
+  type: TGPNet
+  inp_channels: 15
+  out_channels: 15
+  dim: 48
+  num_blocks: [1,2,2,8]
+  num_refinement_blocks: 2
+  heads: [1,2,4,8]
+  ffn_expansion_factor: 2.66
+  bias: False
+  LayerNorm_type: WithBias
+  
+
+# path
+path:
+  pretrain_network_g: ~
+  strict_load_g: true
+  resume_state: ~
+
+# training settings
+train:
+  total_iter: 400000
+  warmup_iter: -1 # no warm up
+  use_grad_clip: true
+
+  # Split 300k iterations into two cycles. 
+  # 1st cycle: fixed 3e-4 LR for 92k iters. 
+  # 2nd cycle: cosine annealing (3e-4 to 1e-6) for 208k iters.
+  scheduler:
+    type: CosineAnnealingRestartCyclicLR
+    periods: [80000, 160000, 160000]
+    restart_weights: [1,1,1]
+    eta_mins: [0.0002,0.000001,0.0000001]
+  
+  mixing_augs:
+    mixup: false
+    mixup_beta: 1.2
+    use_identity: true
+
+  optim_g:
+    type: AdamW
+    lr: !!float 2e-4
+    weight_decay: !!float 1e-4
+    betas: [0.9, 0.999]
+  
+  # losses
+  pixel_opt:
+    type: L1Loss
+    loss_weight: 1
+    reduction: mean
+
+# validation settings
+val:
+  window_size: 8
+  val_freq: !!float 1e3
+  save_img: false
+  rgb2bgr: true
+  use_image: true
+  max_minibatch: 4
+
+  metrics:
+    psnr: # metric name, can be arbitrary
+      type: calculate_psnr
+      crop_border: 0
+      test_y_channel: false
+
+# logging settings
+logger:
+  print_freq: 1000
+  save_checkpoint_freq: !!float 1e3
+  use_tb_logger: true
+  wandb:
+    project: ~
+    resume_id: ~
+
+# dist training settings
+dist_params:
+  backend: nccl
+  port: 29500
